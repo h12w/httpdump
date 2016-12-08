@@ -76,13 +76,13 @@ func newProxy(certs *mitm.CertPool, roundTripper http.RoundTripper) *proxy {
 }
 
 func (p *proxy) serve(w http.ResponseWriter, req *http.Request) {
-	if req.Method == "GET" {
-		p.serveHTTP(w, req)
-	} else if req.Method == "CONNECT" {
+	if req.Method == "CONNECT" {
 		err := p.certs.ServeHTTPS(w, req, p.serveHTTP)
 		if err != nil {
 			log.Error(errors.Wrap(err))
 		}
+	} else {
+		p.serveHTTP(w, req)
 	}
 }
 
@@ -101,6 +101,9 @@ var hopHeaders = []string{
 }
 
 func (p *proxy) serveHTTP(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("----- ------ ----- ----- ----- -----")
+	buf, _ := httputil.DumpRequest(req, true)
+	fmt.Println(string(buf))
 	req.RequestURI = ""
 	resp, err := p.roundTripper.RoundTrip(req)
 	if err != nil {
@@ -122,9 +125,6 @@ func (p *proxy) serveHTTP(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 	defer resp.Body.Close()
-	fmt.Println("----- ------ ----- ----- ----- -----")
-	buf, _ := httputil.DumpRequest(req, true)
-	fmt.Println(string(buf))
 	buf, _ = httputil.DumpResponse(resp, needResponseBody(resp))
 	fmt.Println(string(buf))
 	fmt.Println("")
