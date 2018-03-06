@@ -19,7 +19,7 @@ import (
 // Config is global config struct
 type Config struct {
 	Port  int    `long:"port" description:"listening port" default:"2080"`
-	Proxy string `long:"proxy" description:"http proxy"`
+	Proxy string `long:"proxy" description:"upstream http proxy"`
 }
 
 func main() {
