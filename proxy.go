@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -10,7 +11,6 @@ import (
 	"sync"
 	"time"
 
-	"appcoachs.net/x/log"
 	"h12.me/config"
 	"h12.me/mitm"
 	"h12.me/mitm/proxy"
