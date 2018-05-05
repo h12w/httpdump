@@ -11,9 +11,9 @@ import (
 	"sync"
 	"time"
 
-	"h12.me/config"
-	"h12.me/mitm"
-	"h12.me/mitm/proxy"
+	"h12.io/config"
+	"h12.io/mitm"
+	"h12.io/mitm/proxy"
 )
 
 // Config is global config struct
